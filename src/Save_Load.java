@@ -29,6 +29,16 @@ public class Save_Load {
             System.out.println("key :" + entry.getKey() + " & values : ");
             System.out.println(entry.getValue());
         }
+        /*FileInputStream fis = new FileInputStream("conf.bin");
+            ObjectInputStream inputStream = new ObjectInputStream(fis);
+            Object object = new Object();
+            map = (HashMap)inputStream.readObject();          
+            inputStream.close();
+            fis.close();
+            
+            
+            String[] keys = map.get("Europe");
+            System.out.println(keys[0] + " " + keys[1] + " " + keys[2]);*/
     }
 
 }
