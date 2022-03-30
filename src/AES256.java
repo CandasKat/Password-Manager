@@ -3,12 +3,13 @@ import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.Serializable;
 import java.util.Base64;
+import java.util.HashMap;
 
 public class AES256 implements Serializable {
-    private SecretKey key;
+    private static SecretKey key;
     private final int KEY_SIZE = 256;
     private final int T_LEN = 128;
-    private byte[] iv;
+    private static byte[] iv;
 
     public void init() throws Exception{
         KeyGenerator generator = KeyGenerator.getInstance("AES");
@@ -48,30 +49,13 @@ public class AES256 implements Serializable {
         return Base64.getDecoder().decode(data);
     }
 
-    private void export(){
-        System.err.println("SecretKey : " + encode(key.getEncoded()));
-        System.err.println("iv : " + encode(iv));
+    public Object export(HashMap<String, String[]> map, String name, String encryptedKey){
+
+        String[] keys = {encryptedKey, encode(iv), encode(key.getEncoded())};
+        map.put(name, keys);
+
+        return map;
     }
 
-    public static void main(String[] args) {
 
-        try {
-            Generator generator = new Generator();
-            generator.generate();
-            String asd = generator.getPassword();
-
-
-            AES256 aes256 = new AES256();
-            aes256.init();
-            String encryptedKey = aes256.encrypt(asd);
-            String decryptedKey = aes256.decrypt(encryptedKey);
-
-            System.err.println("Encrypted Key : " + encryptedKey);
-            System.err.println("Decrypted Key : " + decryptedKey);
-            aes256.export();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
