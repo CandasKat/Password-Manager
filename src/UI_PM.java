@@ -7,7 +7,8 @@ public class UI_PM extends JPanel {
         Scanner scanner = new Scanner(System.in);
         Generator generator = new Generator();
         AES256 aes256 = new AES256();
-        HashMap<String, String> map = new HashMap<String,String>();
+        HashMap<String, String[]> map = new HashMap<String,String[]>();
+
         while (true) {
             System.out.println("**************************************");
             System.out.println("Yapmak istediginiz islemi secin\n" +
@@ -24,9 +25,8 @@ public class UI_PM extends JPanel {
                     aes256.init();
                     String encryptedKey = aes256.encrypt(generator.getPassword());
                     String decryptedKey = aes256.decrypt(encryptedKey);
-                    System.err.println("Encrypted Key : " + encryptedKey);
                     System.err.println("Sifreniz : " + decryptedKey);
-                    Save_Load.savePassword(map,name, encryptedKey);
+                    Save_Load.add(map, name ,encryptedKey);
                     System.out.println("Sifreniz basariyla sisteme kaydedildi");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -34,17 +34,13 @@ public class UI_PM extends JPanel {
 
 
             } else if (islem.equals("2")) {
-                //System.out.println("Sifreyi hangi platform icin istiyorsaniz adini girin (not: sifreniz programda bu isimle kaydedilecektir!) : ");
-                //String name = scanner.nextLine();
-                //generator.generate();
+
                 try {
-                    //aes256.init();
-                    //String encryptedKey = aes256.encrypt(generator.getPassword());
-                    //String decryptedKey = aes256.decrypt(encryptedKey);
-                    //System.err.println("Encrypted Key : " + encryptedKey);
-                    //System.err.println("Sifreniz : " + decryptedKey);
-                    Save_Load.callPassword(map);
-                    //System.out.println("Sifreniz basariyla sisteme kaydedildi");
+                    System.out.println("Sifresini ogrenmek istediginiz platformu girin : ");
+                    String name = scanner.nextLine();
+
+                    Save_Load.readFile(name);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
