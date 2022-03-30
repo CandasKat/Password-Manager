@@ -1,44 +1,106 @@
+import uk.co.caprica.vlcj.medialist.MediaListFactory;
+
 import java.io.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.sql.SQLOutput;
+import java.util.*;
+
+import javax.xml.transform.Source;
+
+class NewObjectoutputStream extends ObjectOutputStream{
+
+    NewObjectoutputStream() throws IOException,SecurityException {
+        super();
+    }
+    NewObjectoutputStream(OutputStream outputStream) throws IOException{
+        super(outputStream);
+    }
+
+    @Override
+    protected void writeStreamHeader() throws IOException {
+        return;
+    }
+}
 
 public class Save_Load {
+    static Scanner scanner = new Scanner(System.in);
 
-    public static void savePassword(HashMap<String, String> map ,String name, String encryptedKey) throws IOException {
+    private static File file = new File("conf.bin");
 
-        FileOutputStream fos = new FileOutputStream("conf.bin", true);
-        ObjectOutputStream outputStream = new ObjectOutputStream(fos);
-        map.put(name, encryptedKey);
-        outputStream.writeObject(map);
-        //outputStream.close();
-        //fos.close();
+    public static boolean add(HashMap<String, String[]> map, String name, String encryptedKey){
+        boolean status = false;
 
-    }
-    public static void callPassword(HashMap<String, String> map) throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream("conf.bin");
-        ObjectInputStream inputStream = new ObjectInputStream(fis);
-        map = (HashMap)inputStream.readObject();
-        inputStream.close();
-        fis.close();
-        Set set = map.entrySet();
-        Iterator iterator = set.iterator();
-        while (iterator.hasNext()){
-            Map.Entry entry = (Map.Entry)iterator.next();
-            System.out.println("key :" + entry.getKey() + " & values : ");
-            System.out.println(entry.getValue());
+        if (map != null){
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream("conf.bin", true);
+                if (file.length() == 0){
+                    ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
+                    outputStream.writeObject(new AES256().export(map, name, encryptedKey));
+                }
+                else {
+                    NewObjectoutputStream outputStream = new NewObjectoutputStream(fileOutputStream);
+                    outputStream.writeObject(new AES256().export(map, name, encryptedKey));
+                    outputStream.close();
+                }
+                fileOutputStream.close();
+            }
+            catch (Exception e){
+                System.out.println("Exception olustu!..");
+            }
+            status = true;
         }
-        /*FileInputStream fis = new FileInputStream("conf.bin");
-            ObjectInputStream inputStream = new ObjectInputStream(fis);
-            Object object = new Object();
-            map = (HashMap)inputStream.readObject();          
-            inputStream.close();
-            fis.close();
-            
-            
-            String[] keys = map.get("Europe");
-            System.out.println(keys[0] + " " + keys[1] + " " + keys[2]);*/
+        return status;
     }
+
+    public static boolean readFile(String name){
+        AES256 aes256 = new AES256();
+        String encryptedKey;
+        String secretKey;
+        String iv;
+        boolean status = false;
+        try{
+            file.createNewFile();
+        }
+        catch (Exception e){
+            System.out.println("Exception olustu!..");
+        }
+        if (file.length() != 0){
+            try{
+                FileInputStream fileInputStream = new FileInputStream("conf.bin");
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+                HashMap<String, String[]> map = new HashMap<String, String[]>();
+
+                while(fileInputStream.available() != 0){
+                    map.putAll((HashMap<String,String[]>) objectInputStream.readObject());
+                }
+                objectInputStream.close();
+                fileInputStream.close();
+                String[] keys = map.get(name);
+
+                if (keys == null){
+                    System.out.println("Bu platforma ait herhangi bir kayitli sifreniz bulunmuyor." +
+                            "\nEger kayitli sifreniz oldugundan eminseniz lutfen buyuk kucuk harfe dikkat ederek yeniden deneyin...");
+                }
+                else{
+
+                    encryptedKey = keys[0];
+                    iv = keys[1];
+                    secretKey = keys[2];
+
+                    aes256.initFromStrings(secretKey,iv);
+                    String sifre = aes256.decrypt(encryptedKey);
+                    System.out.println("Sifreniz = " + sifre);
+                }
+
+                status = true;
+            }
+            catch (Exception e){
+                System.out.println("Exception olustu!..");
+            }
+        }
+        return status;
+    }
+
+
 
 }
