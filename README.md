@@ -1,5 +1,5 @@
 # Password_Manager
-<h1><b>This is a password manager<b><h1>
+<h1><b>This is a password manager
 <p>Generates a strong random password.
 <p>It encrypts and stores the password it creates with the AES256 method.
 <p>To know your registered password, you only need to enter the name of the platform.
