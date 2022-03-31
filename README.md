@@ -5,3 +5,4 @@
 <p>To know your registered password, you only need to enter the name of the platform.
 <p>The program stores the password in the bin file in the crypt and recalls it.
 <p>Although this version is in Turkish, you can also try the French and English versions from the branch section...
+<p>Login section and some additional features will be added later
