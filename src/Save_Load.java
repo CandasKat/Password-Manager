@@ -1,10 +1,7 @@
-import uk.co.caprica.vlcj.medialist.MediaListFactory;
-
 import java.io.*;
-import java.sql.SQLOutput;
 import java.util.*;
 
-import javax.xml.transform.Source;
+
 
 class NewObjectoutputStream extends ObjectOutputStream{
 
@@ -78,8 +75,8 @@ public class Save_Load {
                 String[] keys = map.get(name);
 
                 if (keys == null){
-                    System.out.println("Bu platforma ait herhangi bir kayitli sifreniz bulunmuyor." +
-                            "\nEger kayitli sifreniz oldugundan eminseniz lutfen buyuk kucuk harfe dikkat ederek yeniden deneyin...");
+                    System.out.println("You do not have any registered passwords for this platform." +
+                            "\nIf you are sure you have a saved password, please try again, paying attention to the uppercase letters....");
                 }
                 else{
 
@@ -89,7 +86,7 @@ public class Save_Load {
 
                     aes256.initFromStrings(secretKey,iv);
                     String sifre = aes256.decrypt(encryptedKey);
-                    System.out.println("Sifreniz = " + sifre);
+                    System.out.println("Your password = " + sifre);
                 }
 
                 status = true;
