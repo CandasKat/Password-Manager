@@ -1,10 +1,5 @@
-import uk.co.caprica.vlcj.medialist.MediaListFactory;
-
 import java.io.*;
-import java.sql.SQLOutput;
 import java.util.*;
-
-import javax.xml.transform.Source;
 
 class NewObjectoutputStream extends ObjectOutputStream{
 
