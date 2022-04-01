@@ -1,3 +1,7 @@
+package com.PassMan.Main;
+
+import com.PassMan.Main.AES256;
+
 import java.io.*;
 import java.util.*;
 
@@ -59,8 +63,8 @@ public class Save_Load {
                 String[] keys = map.get(name);
 
                 if (keys == null){
-                    System.out.println("You do not have any registered passwords for this platform." +
-                            "\nIf you are sure you have a saved password, please try again, paying attention to the uppercase letters....");
+                    System.out.println("Vous n'avez aucun mot de passe enregistré pour cette plateforme." +
+                            "\nSi vous êtes sûr d'avoir un mot de passe enregistré, veuillez réessayer en faisant attention aux majuscules.");
                 }
                 else{
 
@@ -70,7 +74,7 @@ public class Save_Load {
 
                     aes256.initFromStrings(secretKey,iv);
                     String sifre = aes256.decrypt(encryptedKey);
-                    System.out.println("Your password = " + sifre);
+                    System.out.println("Votre mot de passe = " + sifre);
                 }
 
                 status = true;

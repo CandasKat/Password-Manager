@@ -1,4 +1,9 @@
-import java.applet.*;
+package com.PassMan.Main;
+
+import com.PassMan.Main.AES256;
+import com.PassMan.Main.Generator;
+import com.PassMan.Main.Save_Load;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -12,20 +17,20 @@ public class UI_PM{
 
         while (true) {
             System.out.println("**************************************");
-            System.out.println("Select the action you want to do\n" +
-                    "1. Creating a new password\n" +
-                    "2. Knowing the saved password\n" +
-                    "3. Exit");
+            System.out.println("Sélectionnez l'action que vous voulez faire\n" +
+                    "1. Création d'un nouveau mot de passe\n" +
+                    "2. Connaître le mot de passe enregistré\n" +
+                    "3. Sortir");
             String islem = scanner.nextLine();
             System.out.println("**************************************");
             if (islem.equals("1")) {
-                System.out.println("Enter the name of the platform for which you want the password (note: your password will be saved with this name in the program!) : ");
+                System.out.println("Entrez le nom de la plateforme pour laquelle vous voulez le mot de passe (attention : votre mot de passe sera enregistré avec ce nom dans le programme !) :");
                 String name = scanner.nextLine();
 
                 while (true) {
-                    System.out.println("Choose your preferred password size\n" +
-                            "a. 16 character\n" +
-                            "b. 28 character");
+                    System.out.println("Choisissez votre taille de mot de passe préférée\n" +
+                            "a. 16 caractère\n" +
+                            "b. 28 caractère");
                     String charTaille = scanner.nextLine();
                     if (charTaille.equals("a") || charTaille.equals("A")) {
                         generator.generateFor16();
@@ -33,9 +38,9 @@ public class UI_PM{
                             aes256.init();
                             String encryptedKey = aes256.encrypt(generator.generateFor16());
                             String decryptedKey = aes256.decrypt(encryptedKey);
-                            System.err.println("Your password : " + decryptedKey);
+                            System.err.println("Votre mot de passe : " + decryptedKey);
                             Save_Load.add(map, name, encryptedKey);
-                            System.out.println("Your password has been successfully saved in the system");
+                            System.out.println("Votre mot de passe a été enregistré avec succès dans le système");
                             break;
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -46,9 +51,9 @@ public class UI_PM{
                             aes256.init();
                             String encryptedKey = aes256.encrypt(generator.generateFor28());
                             String decryptedKey = aes256.decrypt(encryptedKey);
-                            System.err.println("Your password : " + decryptedKey);
+                            System.err.println("Votre mot de passe : " + decryptedKey);
                             Save_Load.add(map, name, encryptedKey);
-                            System.out.println("Your password has been successfully saved in the system");
+                            System.out.println("Votre mot de passe a été enregistré avec succès dans le système");
                             break;
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -68,7 +73,7 @@ public class UI_PM{
             } else if (islem.equals("2")) {
 
                 try {
-                    System.out.println("Enter the platform whose password you want to know : ");
+                    System.out.println("Saisissez la plateforme dont vous souhaitez connaître le mot de passe : ");
                     String name = scanner.nextLine();
 
                     Save_Load.readFile(name);
@@ -79,11 +84,11 @@ public class UI_PM{
             }
 
             else if (islem.equals("3")){
-                System.out.println("Exiting the program...");
+                System.out.println("Quitter le programme...");
                 break;
             }
             else {
-                System.out.println("Please enter a valid transaction");
+                System.out.println("Veuillez entrer une transaction valide");
             }
         }
 
