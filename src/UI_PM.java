@@ -1,8 +1,9 @@
-import javax.swing.*;
+import java.applet.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class UI_PM extends JPanel {
+
+public class UI_PM{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Generator generator = new Generator();
@@ -20,17 +21,48 @@ public class UI_PM extends JPanel {
             if (islem.equals("1")) {
                 System.out.println("Enter the name of the platform for which you want the password (note: your password will be saved with this name in the program!) : ");
                 String name = scanner.nextLine();
-                generator.generate();
-                try {
-                    aes256.init();
-                    String encryptedKey = aes256.encrypt(generator.getPassword());
-                    String decryptedKey = aes256.decrypt(encryptedKey);
-                    System.err.println("Your password : " + decryptedKey);
-                    Save_Load.add(map, name ,encryptedKey);
-                    System.out.println("Your password has been successfully saved in the system");
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                while (true) {
+                    System.out.println("Choose your preferred password size\n" +
+                            "a. 16 character\n" +
+                            "b. 28 character");
+                    String charTaille = scanner.nextLine();
+                    if (charTaille.equals("a") || charTaille.equals("A")) {
+                        generator.generateFor16();
+                        try {
+                            aes256.init();
+                            String encryptedKey = aes256.encrypt(generator.generateFor16());
+                            String decryptedKey = aes256.decrypt(encryptedKey);
+                            System.err.println("Your password : " + decryptedKey);
+                            Save_Load.add(map, name, encryptedKey);
+                            System.out.println("Your password has been successfully saved in the system");
+                            break;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if (charTaille.equals("b") || charTaille.equals("B")) {
+                        try {
+                            aes256.init();
+                            String encryptedKey = aes256.encrypt(generator.generateFor28());
+                            String decryptedKey = aes256.decrypt(encryptedKey);
+                            System.err.println("Your password : " + decryptedKey);
+                            Save_Load.add(map, name, encryptedKey);
+                            System.out.println("Your password has been successfully saved in the system");
+                            break;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        System.out.println("You have not entered a valid transaction");
+                        System.out.println();
+                        System.out.println("**************************************");
+                    }
+
                 }
+
+
 
 
             } else if (islem.equals("2")) {

@@ -2,22 +2,6 @@ import java.io.*;
 import java.util.*;
 
 
-
-class NewObjectoutputStream extends ObjectOutputStream{
-
-    NewObjectoutputStream() throws IOException,SecurityException {
-        super();
-    }
-    NewObjectoutputStream(OutputStream outputStream) throws IOException{
-        super(outputStream);
-    }
-
-    @Override
-    protected void writeStreamHeader() throws IOException {
-        return;
-    }
-}
-
 public class Save_Load {
     static Scanner scanner = new Scanner(System.in);
 
