@@ -1,4 +1,5 @@
-import java.applet.*;
+package com.PassMan.Main;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
