@@ -20,20 +20,53 @@ public class UI_PM extends JPanel {
             if (islem.equals("1")) {
                 System.out.println("Sifreyi hangi platform icin istiyorsaniz adini girin (not: sifreniz programda bu isimle kaydedilecektir!) : ");
                 String name = scanner.nextLine();
-                generator.generate();
-                try {
-                    aes256.init();
-                    String encryptedKey = aes256.encrypt(generator.getPassword());
-                    String decryptedKey = aes256.decrypt(encryptedKey);
-                    System.err.println("Sifreniz : " + decryptedKey);
-                    Save_Load.add(map, name ,encryptedKey);
-                    System.out.println("Sifreniz basariyla sisteme kaydedildi");
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                while (true) {
+                    System.out.println("Tercih ettiginiz sifre boyutunu secin\n" +
+                            "a. 16 karakter\n" +
+                            "b. 28 karakter");
+                    String charTaille = scanner.nextLine();
+                    if (charTaille.equals("a") || charTaille.equals("A")) {
+                        generator.generateFor16();
+                        try {
+                            aes256.init();
+                            String encryptedKey = aes256.encrypt(generator.generateFor16());
+                            String decryptedKey = aes256.decrypt(encryptedKey);
+                            System.err.println("Sifreniz : " + decryptedKey);
+                            Save_Load.add(map, name, encryptedKey);
+                            System.out.println("Sifreniz basariyla sisteme kaydedildi");
+                            break;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if (charTaille.equals("b") || charTaille.equals("B")) {
+                        try {
+                            aes256.init();
+                            String encryptedKey = aes256.encrypt(generator.generateFor28());
+                            String decryptedKey = aes256.decrypt(encryptedKey);
+                            System.err.println("Sifreniz : " + decryptedKey);
+                            Save_Load.add(map, name, encryptedKey);
+                            System.out.println("Sifreniz basariyla sisteme kaydedildi");
+                            break;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        System.out.println("Gecerli bir islem girmediniz");
+                        System.out.println();
+                        System.out.println("**************************************");
+                    }
+
                 }
 
 
-            } else if (islem.equals("2")) {
+
+
+            }
+
+            else if (islem.equals("2")) {
 
                 try {
                     System.out.println("Sifresini ogrenmek istediginiz platformu girin : ");
