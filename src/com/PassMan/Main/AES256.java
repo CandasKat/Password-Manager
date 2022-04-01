@@ -1,3 +1,5 @@
+package com.PassMan.Main;
+
 import javax.crypto.*;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
