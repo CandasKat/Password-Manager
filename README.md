@@ -1,4 +1,4 @@
-# Password_Manager
+# Password-Manager
 
 <p>This is a password manager
 <p>Creates a strong random password.
