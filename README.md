@@ -1,9 +1,20 @@
-# Password-Manager
+<div align=center>
+<img height=300 src="https://media.giphy.com/media/fRYV4ck2DRYpBmpG1f/giphy.gif"/>
+<h1>Password-Manager</h1>
+</div>
 
-<p>This is a password manager
-<p>Creates a strong random password.
-<p>It encrypts and stores the generated password with the AES256 method.
-<p>To learn your registered password, you only need to enter the name of the platform.
-<p>The program stores and recalls the password in the bin file in the crypt.
-<p>You can also try the French and Turkish versions from the Branch section...
-<p>Introductory section and some additional features will be added later
+This is a password manager
+
+### :telescope: Objectives:
+
+- Creates a strong random password.
+
+- It encrypts and stores the generated password with the AES256 method.
+
+- To learn your registered password, you only need to enter the name of the platform.
+
+- The program stores and recalls the password in the bin file in the crypt.
+
+- TYou can also try the French and Turkish versions from the Branch section...
+
+- Introductory section and some additional features will be added later
