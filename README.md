@@ -15,6 +15,6 @@ This is a password manager
 
 - The program stores and recalls the password in the bin file in the crypt.
 
-- TYou can also try the French and Turkish versions from the Branch section...
+- You can also try the French and Turkish versions from the Branch section...
 
 - Introductory section and some additional features will be added later
